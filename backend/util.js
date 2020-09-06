@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from './config';
+
 const getToken = (user) => {
   return jwt.sign(
     {
@@ -11,7 +12,7 @@ const getToken = (user) => {
     config.JWT_SECRET,
     {
       expiresIn: '48h',
-    }
+    },
   );
 };
 
@@ -26,7 +27,6 @@ const isAuth = (req, res, next) => {
       }
       req.user = decode;
       next();
-      return;
     });
   } else {
     return res.status(401).send({ message: 'Token is not supplied.' });
